@@ -30,18 +30,11 @@
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr); /* One column for mobile */
     grid-auto-rows: max-content;
-    grid-row-gap: 200px;
+    grid-row-gap: 40px;
   }
 }
 .image {
   width: 100%;
-
-  @media (max-width: 568px) {
-    margin-top: -150px;
-  }
-  @media (max-width: 768px) {
-    margin-top: -150px;
-  }
   
 }
 .featured-image {
