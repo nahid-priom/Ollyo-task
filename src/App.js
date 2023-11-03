@@ -1,10 +1,13 @@
-import ImageGallery from './components/ImageGallery'
-
+import ImageGallery from "./components/ImageGallery";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 function App() {
   return (
-   <div>
-    <ImageGallery/>
-   </div>
+    <DndProvider backend={HTML5Backend}>
+      <div>
+        <ImageGallery />
+      </div>
+    </DndProvider>
   );
 }
 
