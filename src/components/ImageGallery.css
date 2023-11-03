@@ -2,7 +2,7 @@
   width: 100%;
   object-fit: cover;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
   height: auto;
   cursor: pointer;
 }
@@ -16,6 +16,10 @@
   grid-auto-rows: 200px;
   grid-auto-flow: dense;
   grid-auto-columns: 10px;
+  transition: opacity 0.3s ease;
+  & .dragging {
+    opacity: 0.6;
+  }
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(4, 1fr); /* Two columns for tablets */
@@ -34,8 +38,21 @@
   }
 }
 .image {
-  width: 100%;
-  
+  position: relative;
+  display: inline-block; /* Add a transition for smooth opacity changes */
+  transition: opacity 0.3s ease; /* Add a smooth opacity transition */
+
+  /* Add a lower opacity when checked */
+  &.checked {
+    opacity: 0.6;
+  }
+}
+.image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 0.2s;
 }
 .featured-image {
   width: 100%;
@@ -47,9 +64,78 @@
 .title {
   text-align: center;
   font-size: 40px;
-  text-decoration: underline;
   @media (max-width: 600px) {
    font-size: 30px;
   }
 
+}
+.image:hover img:not(:checked) {
+  opacity: 0.7;
+  filter: brightness(50%);
+}
+.image:hover .checkbox {
+  visibility: visible;
+}
+.checkbox.visible {
+  visibility: visible; /* Shown when the image is checked */
+}
+.checkbox {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  visibility: hidden; /* Initially hidden */
+}
+.checkbox + img {
+  cursor: pointer; /* Add a pointer cursor on hover for the image */
+}
+
+.checkbox:checked + .checkbox-custom:after {
+  content: "\2713"; /* Checkmark character */
+  font-size: 16px;
+  text-align: center;
+  line-height: 18px;
+  position: absolute;
+  top: -3px;
+  left: 3px;
+  color: #000;
+}
+.image.checked {
+  filter: brightness(90%); /* Adjust the brightness value as needed */
+}
+.selected-image{
+  display: flex;
+  max-width: 1088px;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.checked-count{
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.check-items{
+  display: flex;
+  align-items: center;
+
+}
+.ios-checkbox{
+  font-size: 25px;
+  color: blue;
+}
+
+.btn{
+  background: white;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover{
+  text-decoration: underline;
+  color: red;
 }
