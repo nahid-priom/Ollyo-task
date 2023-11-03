@@ -114,7 +114,7 @@ function ImageItem({ id, src, onDrop, isFeatured }) {
       className={`image${isFeatured ? " featured-image" : ""}`}
       ref={(node) => ref(drop(node))}
     >
-      <img className="img" src={src} alt={`Image ${id}`} />
+      <img className="img" src={src} alt={src} />
     </div>
   );
 }
