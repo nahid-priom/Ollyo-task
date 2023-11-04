@@ -10,9 +10,10 @@ import image7 from "./images/image-8.webp";
 import image8 from "./images/image-9.webp";
 import image9 from "./images/image-10.jpeg";
 import image10 from "./images/image-1.webp";
-import { useDrag, useDrop, DndProvider } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { IoIosCheckbox } from "react-icons/io";
+import ImageItem from "./ImageItem";
 
 function ImageGallery() {
   const [images, setImages] = useState([
@@ -90,6 +91,7 @@ function ImageGallery() {
       updatedImages.sort((a, b) => a.id - b.id);
 
       setImages(updatedImages);
+      setIsDragging(false);
     }
   };
 
@@ -113,16 +115,21 @@ function ImageGallery() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <h1 className="title">Image Gallery</h1>
-      <div className="selected-image">
-        <div className="check-items">
-          <IoIosCheckbox className="ios-checkbox" />
-          <div className="checked-count">{checkedImageCount} Files Selected</div>
+      {checkedImageCount > 0 ? (
+        <div className="selected-image">
+          <div className="check-items">
+            <IoIosCheckbox className="ios-checkbox" />
+            <div className="checked-count">
+              {checkedImageCount} Files Selected
+            </div>
+          </div>
+          <button className="btn" onClick={handleDeleteImages}>
+            Delete files
+          </button>
         </div>
-        <button className="btn" onClick={handleDeleteImages}>
-          Delete files
-        </button>
-      </div>
+      ) : (
+        <h1 className="title">Gallery</h1>
+      )}
       <div className={`image-gallery ${isDragging ? "dragging" : ""}`}>
         {images.map((image, index) => (
           <ImageItem
@@ -139,58 +146,6 @@ function ImageGallery() {
         ))}
       </div>
     </DndProvider>
-  );
-}
-
-function ImageItem({
-  id,
-  src,
-  onDrop,
-  isFeatured,
-  isChecked,
-  onCheckboxChange,
-  isDragging,
-  setIsDragging,
-}) {
-  const [, ref] = useDrag({
-    type: "image",
-    item: { id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [, drop] = useDrop({
-    accept: "image",
-    drop: (item) => {
-      if (item.id !== id) {
-        onDrop(item.id, id);
-      }
-    },
-  });
-
-  return (
-    <div
-      className={`image${isFeatured ? " featured-image" : ""} ${
-        isChecked ? "checked" : ""
-      }`}
-      ref={(node) => {
-        ref(drop(node));
-        setIsDragging(isDragging);
-      }}
-    >
-      <label className="checkbox-label">
-        <input
-          type="checkbox"
-          className={`checkbox ${isChecked ? "visible" : ""}`}
-          checked={isChecked}
-          onChange={onCheckboxChange}
-        />
-        <div className={`checkbox-icon ${isChecked ? "visible" : ""}`}></div>
-        <img className="img" src={src} alt={src} />
-        <span className="checkbox-custom"></span>
-      </label>
-    </div>
   );
 }
 

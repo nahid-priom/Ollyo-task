@@ -16,10 +16,7 @@
   grid-auto-rows: 200px;
   grid-auto-flow: dense;
   grid-auto-columns: 10px;
-  transition: opacity 0.3s ease;
-  & .dragging {
-    opacity: 0.6;
-  }
+  transition: grid-template-columns 0.3s ease;
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(4, 1fr); /* Two columns for tablets */
@@ -28,9 +25,8 @@
   @media (max-width: 968px) {
     grid-template-columns: repeat(3, 1fr); /* One column for mobile */
     grid-auto-rows: 270px;
-
   }
- 
+
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr); /* One column for mobile */
     grid-auto-rows: max-content;
@@ -39,14 +35,20 @@
 }
 .image {
   position: relative;
-  display: inline-block; /* Add a transition for smooth opacity changes */
-  transition: opacity 0.3s ease; /* Add a smooth opacity transition */
+  display: inline-block;
+  transition: transform 0.3s; /* Add a smooth transition effect to the transform property */
+  will-change: transform; /* Optimize performance */
 
   /* Add a lower opacity when checked */
   &.checked {
     opacity: 0.6;
   }
+
+  &:hover {
+    transform: scale(1.1); /* Add a scaling effect on hover */
+  }
 }
+
 .image img {
   display: block;
   max-width: 100%;
@@ -62,12 +64,16 @@
 }
 
 .title {
-  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: start;
   font-size: 40px;
   @media (max-width: 600px) {
-   font-size: 30px;
+    font-size: 30px;
+    
   }
-
+  border-bottom: 1px solid gray;
 }
 .image:hover img:not(:checked) {
   opacity: 0.7;
@@ -102,32 +108,37 @@
 .image.checked {
   filter: brightness(90%); /* Adjust the brightness value as needed */
 }
-.selected-image{
+.selected-image {
   display: flex;
   max-width: 1088px;
   margin: 0 auto;
   justify-content: space-between;
   padding: 0 10px;
   align-items: center;
+  padding: 21px 0;
+  @media (max-width: 600px) {
+    padding: 14.3px 0;
+
+  }
+  border-bottom: 1px solid gray;
 }
 
-.checked-count{
+.checked-count {
   font-weight: bold;
   font-size: 20px;
   margin-left: 10px;
 }
 
-.check-items{
+.check-items {
   display: flex;
   align-items: center;
-
 }
-.ios-checkbox{
+.ios-checkbox {
   font-size: 25px;
   color: blue;
 }
 
-.btn{
+.btn {
   background: white;
   border: none;
   color: red;
@@ -135,7 +146,10 @@
   cursor: pointer;
   font-weight: bold;
 }
-.btn:hover{
+.btn:hover {
   text-decoration: underline;
   color: red;
+}
+.image-gallery.dragging {
+  grid-template-columns: repeat(1, 1fr); 
 }
