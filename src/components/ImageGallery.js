@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ImageGallery.css"; // Import your CSS file for styling
+import "./ImageGallery.css";
 import image1 from "./images/image-11.jpeg";
 import image2 from "./images/image-3.webp";
 import image3 from "./images/image-4.webp";
@@ -16,7 +16,9 @@ import { IoIosCheckbox } from "react-icons/io";
 import ImageItem from "./ImageItem";
 
 function ImageGallery() {
+   // State for image data and dragging indicator
   const [images, setImages] = useState([
+    // Image data with id, source, and checked state
     {
       id: 1,
       src: image1,
@@ -70,7 +72,7 @@ function ImageGallery() {
   ]);
 
   const [isDragging, setIsDragging] = useState(false);
-
+ // Handle image drop to reorder
   const handleDrop = (sourceImageId, targetImageId) => {
     const updatedImages = [...images];
     const sourceIndex = updatedImages.findIndex(
@@ -94,7 +96,7 @@ function ImageGallery() {
       setIsDragging(false);
     }
   };
-
+  // Handle checkbox state change
   function handleCheckboxChange(event, id) {
     const updatedImages = images.map((image) => {
       if (image.id === id) {
@@ -105,17 +107,18 @@ function ImageGallery() {
 
     setImages(updatedImages);
   }
-
+// Handle deletion of checked images
   const handleDeleteImages = () => {
     const updatedImages = images.filter((image) => !image.isChecked);
     setImages(updatedImages);
   };
-
+// Count the number of checked images
   const checkedImageCount = images.filter((image) => image.isChecked).length;
 
   return (
     <DndProvider backend={HTML5Backend}>
       {checkedImageCount > 0 ? (
+        // Display the selected image section when images are checked
         <div className="selected-image">
           <div className="check-items">
             <IoIosCheckbox className="ios-checkbox" />
@@ -132,6 +135,7 @@ function ImageGallery() {
       )}
       <div className={`image-gallery ${isDragging ? "dragging" : ""}`}>
         {images.map((image, index) => (
+          // Map through image data and create ImageItem components
           <ImageItem
             key={image.id}
             id={image.id}

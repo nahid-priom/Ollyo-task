@@ -19,16 +19,16 @@
   transition: grid-template-columns 0.3s ease;
 
   @media (max-width: 1200px) {
-    grid-template-columns: repeat(4, 1fr); /* Two columns for tablets */
+    grid-template-columns: repeat(4, 1fr); 
     grid-auto-rows: 250px;
   }
   @media (max-width: 968px) {
-    grid-template-columns: repeat(3, 1fr); /* One column for mobile */
+    grid-template-columns: repeat(3, 1fr); 
     grid-auto-rows: 270px;
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr); /* One column for mobile */
+    grid-template-columns: repeat(2, 1fr); 
     grid-auto-rows: max-content;
     grid-row-gap: 40px;
   }
@@ -36,16 +36,16 @@
 .image {
   position: relative;
   display: inline-block;
-  transition: transform 0.3s; /* Add a smooth transition effect to the transform property */
-  will-change: transform; /* Optimize performance */
+  transition: transform 0.3s; 
+  will-change: transform; 
 
-  /* Add a lower opacity when checked */
+
   &.checked {
     opacity: 0.6;
   }
 
   &:hover {
-    transform: scale(1.1); /* Add a scaling effect on hover */
+    transform: scale(1.1); 
   }
 }
 
@@ -83,20 +83,20 @@
   visibility: visible;
 }
 .checkbox.visible {
-  visibility: visible; /* Shown when the image is checked */
+  visibility: visible; 
 }
 .checkbox {
   position: absolute;
   top: 10px;
   left: 10px;
-  visibility: hidden; /* Initially hidden */
+  visibility: hidden; 
 }
 .checkbox + img {
-  cursor: pointer; /* Add a pointer cursor on hover for the image */
+  cursor: pointer; 
 }
 
 .checkbox:checked + .checkbox-custom:after {
-  content: "\2713"; /* Checkmark character */
+  content: "\2713"; 
   font-size: 16px;
   text-align: center;
   line-height: 18px;
@@ -106,7 +106,7 @@
   color: #000;
 }
 .image.checked {
-  filter: brightness(90%); /* Adjust the brightness value as needed */
+  filter: brightness(90%); 
 }
 .selected-image {
   display: flex;
